@@ -8,18 +8,8 @@
     <link href="https://jsdelivr.net" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://jsdelivr.net" rel="stylesheet">
-    <style>
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #fcfbf9; color: #2c2c2c; }
-        .navbar-brand { font-weight: 700; letter-spacing: -0.5px; }
-        .nav-link { font-weight: 500; }
-        .card { border: none; border-radius: 12px; transition: transform 0.2s; background: #ffffff; }
-        .card:hover { transform: translateY(-4px); }
-        .btn-dark { background-color: #111; border: none; border-radius: 8px; }
-        .btn-dark:hover { background-color: #333; }
-        .page-section { display: none; padding: 60px 0; }
-        .page-section.active { display: block; }
-        .badge-cart { position: absolute; top: -5px; right: -10px; font-size: 0.7rem; }
-    </style>
+    <!-- Custom CSS Link -->
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
 
@@ -54,7 +44,7 @@
                 <p class="text-muted">Premium pantry staples packed fresh to order.</p>
             </div>
             <div class="row g-4" id="product-list">
-                <!-- Dynamically populated by JS -->
+                <!-- Populated by app.js -->
             </div>
         </div>
     </div>
@@ -62,13 +52,13 @@
     <!-- Product Detail Page -->
     <div id="detail-page" class="page-section">
         <div class="container" id="detail-container">
-            <!-- Dynamically populated by JS -->
+            <!-- Populated by app.js -->
         </div>
     </div>
 
     <!-- About Page -->
     <div id="about-page" class="page-section">
-        <div class="container text-center max-width-md" style="max-width: 600px;">
+        <div class="container text-center" style="max-width: 600px;">
             <h2 class="fw-bold mb-4">About Us</h2>
             <p class="lead text-muted">We deliver wholefoods straight from local farms to your home. By utilizing a minimalist catalog and direct-to-WhatsApp shipping calculations, we cut out heavy operational overhead to give you competitive local rates.</p>
         </div>
@@ -87,7 +77,7 @@
         </div>
     </div>
 
-    <!-- Checkout / Cart Page -->
+    <!-- Checkout Page -->
     <div id="checkout-page" class="page-section">
         <div class="container" style="max-width: 800px;">
             <h2 class="fw-bold mb-4">Your Basket</h2>
@@ -126,49 +116,7 @@
 
     <!-- Bootstrap Bundle JS -->
     <script src="https://jsdelivr.net"></script>
-
-    <!-- E-Commerce Core JavaScript logic -->
-    <script>
-        // CONFIGURATION: Replace with your actual country code + phone number (No spaces, dashes, or + signs)
-        const WHATSAPP_NUMBER = "61400000000"; 
-        const CURRENCY = "$";
-
-        // Product Catalog Data Model
-        const products = [
-            { id: 1, name: "Premium Soya Nuggets", desc: "High protein chunks, perfect for meat alternatives and hearty stews.", img: "https://unsplash.com", sizes: { "500g": 4.50, "1kg": 8.00 } },
-            { id: 2, name: "Organic Rice Flakes (Poha)", desc: "Lightweight, flattened parboiled rice flakes. Ideal for quick breakfasts.", img: "https://unsplash.com", sizes: { "500g": 3.00, "1kg": 5.50 } },
-            { id: 3, name: "Split Yellow Chickpeas", desc: "Premium quality Chana Dal thoroughly polished and cleaned.", img: "https://unsplash.com", sizes: { "500g": 3.50, "1kg": 6.20 } }
-        ];
-
-        let cart = [];
-
-        // Simple Router function
-        function showPage(pageId) {
-            document.querySelectorAll('.page-section').forEach(section => section.classList.remove('active'));
-            document.getElementById(`${pageId}-page`).classList.add('active');
-            window.scrollTo(0, 0);
-            if(pageId === 'checkout') renderCart();
-        }
-
-        // Render Product Grid
-        function renderProducts() {
-            const list = document.getElementById('product-list');
-            list.innerHTML = products.map(p => {
-                const defaultSize = Object.keys(p.sizes)[0];
-                const defaultPrice = p.sizes[defaultSize];
-                return `
-                    <div class="col-md-4">
-                        <div class="card h-100 shadow-sm p-3">
-                            <img src="${p.img}" class="card-img-top rounded img-fluid" style="height:200px; object-fit:cover;" alt="${p.name}">
-                            <div class="card-body d-flex flex-column p-2 mt-2">
-                                <h5 class="card-title fw-bold mb-1">${p.name}</h5>
-                                <p class="text-muted small flex-grow-1">${p.desc.substring(0,60)}...</p>
-                                <div class="mb-3">
-                                    <label class="small text-muted">Select Unit Weight:</label>
-                                    <select class="form-select form-select-sm" id="size-select-${p.id}" onchange="updatePriceText(${p.id})">
-                                        ${Object.entries(p.sizes).map(([sz, pr]) => `<option value="${sz}">${sz} - ${CURRENCY}${pr.toFixed(2)}</option>`).join('')}
-                                    </select>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mt-auto">
-                                    <button class="btn btn-sm btn-outline-secondary" onclick="viewProduct(${p.id})">Details</button>
-                                    <button class="btn btn-sm btn-dark" onclick="addToCart(${p.id})">Add to Basket</button>
+    <!-- Custom JavaScript Link -->
+    <script src="app.js"></script>
+</body>
+</html>
